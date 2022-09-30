@@ -1,3 +1,3 @@
 FROM ubuntu:latest
-RUN apt install -y git curl zip unzip tar openssl
+RUN apt-get update -y && apt-get  install -y git curl zip unzip tar openssl
 CMD ["tail" ,"-f"]
