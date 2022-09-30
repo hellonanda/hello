@@ -27,8 +27,8 @@ jobs:
 #           file: Dockerfile
 #           push: true
       - name: docker image build
-        run: docker build -t " ${{ github.repository }}/kishore:1 "
+        run: docker build -t " ${{ github.repository }}:1 . "
       - name: image push to GHCR
-        run: docker push ${{ github.repository }}/kishore:1
+        run: docker push ${{ github.repository }}:1
          
         
