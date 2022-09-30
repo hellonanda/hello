@@ -29,6 +29,6 @@ jobs:
       - name: docker image build
         run: docker build -t "${{ github.repository }}:1" . 
       - name: image push to GHCR
-        run: docker push ${{ github.repository }}:1
+        run: docker push ghcr.io/${{ github.repository }}:1
          
         
