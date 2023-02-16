@@ -1,6 +1,7 @@
 name: tools
 on:
- push:
+ workflow_dispatch: {}
+ branches:
   - main
  inputs:
       name: py-version
