@@ -1,9 +1,9 @@
 name: tools
 env:
-  versionone: 3.7
-  versiontwo: 3.8
-  versionthree: 3.9
-  versionten: 3.10
+  versionone: '3.7'
+  versiontwo: '3.8'
+  versionthree: '3.9'
+  versionten: '3.10'
 on:
  workflow_dispatch:
    inputs:
