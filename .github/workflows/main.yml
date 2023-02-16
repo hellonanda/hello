@@ -1,21 +1,23 @@
 name: tools
+env:
+  version3.7: 3.7
+  version3.8: 3.8
+  version3.9: 3.9
+  version3.10: 3.10
 on:
- workflow_dispatch: {}
- branches:
-  - main
- inputs:
-      name: py-version
+ workflow_dispatch:
+   inputs:
+     version:
       type: choice
       description: select py version
       options: 
-        - 3.7
-        - 3.8
-        - 3.9
-        - 3.10
-      message:
-        required: true
-      environment:
-        type: environment
+        - ${{ env.version3.7 }}
+        - ${{ env.version3.8 }}
+        - ${{ env.version3.9 }}
+        - ${{ env.version3.10 }}
+    
+     environment:
+        type: dev
 
 jobs:
  tools:
