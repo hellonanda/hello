@@ -29,6 +29,6 @@ jobs:
    - name: Set up Python ${{ matrix.python-version }}
      uses: actions/setup-python@v4
      with:
-        python-version: ${{ github.event.inputs.py-version }}
+        python-version: ${{ github.event.inputs.version }}
    - name: install dependencies
      run: pip install requirements.txt
