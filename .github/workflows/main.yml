@@ -18,14 +18,15 @@ on:
         type: environment
 
 jobs:
- name: tools
- runs-on: ubuntu-latest
- steps:
+ tools:
+  name: tools
+  runs-on: ubuntu-latest
+  steps:
    - name: code checkout
      uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
+   - name: Set up Python ${{ matrix.python-version }}
+     uses: actions/setup-python@v4
+     with:
         python-version: ${{ github.event.inputs.py-version }}
    - name: install dependencies
      run: pip install requirements.txt
