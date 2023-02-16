@@ -11,10 +11,10 @@ on:
       type: choice
       description: select py version
       options: 
-        - ${{ env.version7 }}
-        - ${{ env.version8 }}
-        - ${{ env.version9 }}
-        - ${{ env.version10 }}
+        - ${{ env.versionone }}
+        - ${{ env.versiontwo }}
+        - ${{ env.versionthree }}
+        - ${{ env.versionten }}
     
      environment:
         type: dev
