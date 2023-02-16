@@ -19,7 +19,7 @@ jobs:
         id: python-version
         uses: actions/setup-python@v4
         with:
-          python-version: ${{matrix.python-version }}
-      - name: version compatability
-        if: ${{ steps.pyhton-version.outputs.version != '3.7' }}
-        run: python --version
+          python-version: ${{matrix.python-version == 3.7 }}
+#       - name: version compatability
+#         if: ${{ steps.pyhton-version.outputs.version != '3.7' }}
+#         run: python --version
