@@ -1,0 +1,30 @@
+name: tools
+on:
+ push:
+  - main
+ inputs:
+      name: py-version
+      type: choice
+      description: select py version
+      options: 
+        - 3.7
+        - 3.8
+        - 3.9
+        - 3.10
+      message:
+        required: true
+      environment:
+        type: environment
+
+jobs:
+ name: tools
+ runs-on: ubuntu-latest
+ steps:
+   - name: code checkout
+     uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ github.event.inputs.py-version }}
+   - name: install dependencies
+     run: pip install requirements.txt
