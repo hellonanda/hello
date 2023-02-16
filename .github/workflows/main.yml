@@ -1,9 +1,9 @@
 name: tools
 env:
-  version3.7: 3.7
-  version3.8: 3.8
-  version3.9: 3.9
-  version3.10: 3.10
+  version7: 3.7
+  version8: 3.8
+  version9: 3.9
+  version10: 3.10
 on:
  workflow_dispatch:
    inputs:
@@ -11,10 +11,10 @@ on:
       type: choice
       description: select py version
       options: 
-        - ${{ env.version3.7 }}
-        - ${{ env.version3.8 }}
-        - ${{ env.version3.9 }}
-        - ${{ env.version3.10 }}
+        - ${{ env.version7 }}
+        - ${{ env.version8 }}
+        - ${{ env.version9 }}
+        - ${{ env.version10 }}
     
      environment:
         type: dev
