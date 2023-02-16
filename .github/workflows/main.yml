@@ -18,7 +18,7 @@ on:
 jobs:
  tools:
   name: tools
-  runs-on: ubuntu-latest
+  runs-on: [self-hosted , junaid , windows]
   steps:
    - name: code checkout
      uses: actions/checkout@v3
