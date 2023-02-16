@@ -4,12 +4,6 @@ on:
  push:
   branches:
    - main
-  inputs:
-     version:
-        type: string
-        description: select py version
-     environment:
-        type: dev
 
 jobs:
   build:
@@ -21,7 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ inputs.version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ inputs.version }}
+          python-version: ${{matrix.python-version }}
+      - run: python --version
