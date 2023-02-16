@@ -15,8 +15,6 @@ jobs:
             python-version: "3.7"
             python-version: "3.8"
             python-version: "3.9"
-            python-version: "pypy-2.7"
-            python-version: "pypy-3.8"
           - os: windows-latest
             python-version: "3.7"
     steps:
