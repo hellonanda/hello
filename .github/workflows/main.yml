@@ -8,7 +8,7 @@ on:
  workflow_dispatch:
    inputs:
      version:
-      type: choice
+      type: string
       description: select py version
       
     
