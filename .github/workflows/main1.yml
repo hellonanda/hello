@@ -9,7 +9,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    if:  matrix.python-version  == 3.7
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
@@ -17,7 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
+        id: python-version
         uses: actions/setup-python@v4
         with:
           python-version: ${{matrix.python-version }}
+      - name: version compatability
+        if: ${{ steps.pyhton-version.outputs == '3.7' }}
       - run: python --version
