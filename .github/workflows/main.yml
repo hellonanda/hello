@@ -29,11 +29,11 @@ jobs:
      with:
     # You can change the name of the tag or branch with this input.
     # Default: 'latest'
-      ref: ${{ github.ref }}
+      ref: tag1
 
     # If a description is provided, the action will use it to create an annotated tag. If none is given, the action will create a lightweight tag.
     # Default: ''
-      description: Description for the tag {{ github.ref }}
+      description: Description for the tag tag1 from ${{ github.ref }}
    # - name: Set up Python 
    #   uses: actions/setup-python@v4
    #   with:
