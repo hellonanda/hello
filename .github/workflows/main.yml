@@ -36,6 +36,7 @@ jobs:
     # If a description is provided, the action will use it to create an annotated tag. If none is given, the action will create a lightweight tag.
     # Default: ''
       description: Description for the tag tag1 from ${{ github.ref }}
+      force-branch: true
    # - name: Set up Python 
    #   uses: actions/setup-python@v4
    #   with:
