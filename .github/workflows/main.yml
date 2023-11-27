@@ -16,6 +16,8 @@ on:
    #      type: dev
 permissions:
   issues: write
+  contents: read
+  pages: write 
 jobs:
  tools:
   name: tools
