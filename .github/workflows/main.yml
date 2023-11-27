@@ -30,13 +30,16 @@ jobs:
       # ip | a
       hostname -I
       sleep 30
+      curl ifconfig.me
 
  run-ip:
   name: ip 
   runs-on: ubuntu-latest
+  needs: tools
   steps:
    - run: |
       curl ifconfig.me
+      hostname -I
    
 
    # - name: Run latest-tag
