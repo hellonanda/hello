@@ -22,6 +22,8 @@ jobs:
  tools:
   name: tools
   runs-on: ubuntu-latest
+  env:  
+   GH_TOKEN: ${{ github.token }}
   steps:
    - name: code checkout
      uses: actions/checkout@v3
@@ -34,6 +36,7 @@ jobs:
       cat /etc/hosts
 
       gh api -H "Accept: application/vnd.github+json"  -H "X-GitHub-Api-Version: 2022-11-28" /meta
+     
 
  run-ip:
   name: ip 
