@@ -14,7 +14,8 @@ on:
     
      environment:
         type: dev
-
+permissions:
+  issues: write
 jobs:
  tools:
   name: tools
