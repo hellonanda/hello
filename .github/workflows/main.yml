@@ -27,14 +27,32 @@ jobs:
      uses: actions/setup-python@v4
      with:
         python-version: ${{ github.event.inputs.version }}
+    
+   - name: Create Release
+     id: create_release
+     uses: actions/create-release@latest
+     env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+     with:
+      tag_name: ${{ github.ref }}
+      release_name: Release ${{ github.ref }}
+      body: |
+        Changes in this Release
+        - First Change
+        - Second Change
+      draft: false
+      prerelease: false
 #    - name: install dependencies
 #      run: pip install requirements.txt
-   - uses: trstringer/manual-approval@v1
-     with:
-      secret: ${{ github.TOKEN }}
-      approvers: MirzaJunaid96
-      minimum-approvals: 1
-      issue-title: "Deploying v1.3.5 to prod from staging"
-      issue-body: "Please approve or deny the deployment of version v1.3.5."
-   - name: run simple pyhton scri
-     run: python --version
+   # - uses: trstringer/manual-approval@v1
+   #   with:
+   #    secret: ${{ github.TOKEN }}
+   #    approvers: MirzaJunaid96
+   #    minimum-approvals: 1
+   #    issue-title: "Deploying v1.3.5 to prod from staging"
+   #    issue-body: "Please approve or deny the deployment of version v1.3.5."
+   # - name: run simple pyhton scri
+   #   run: python --version
+
+      
+  
