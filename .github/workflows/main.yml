@@ -28,5 +28,10 @@ jobs:
         python-version: ${{ github.event.inputs.version }}
 #    - name: install dependencies
 #      run: pip install requirements.txt
-   - name: run simple pyhton scrip
+   - uses: trstringer/manual-approval@v1
+     with:
+      secret: ${{ github.TOKEN }}
+      approvers: MirzaJunaid96
+      minimum-approvals: 1
+   - name: run simple pyhton scri
      run: python --version
