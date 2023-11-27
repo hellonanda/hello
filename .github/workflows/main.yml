@@ -31,6 +31,7 @@ jobs:
       hostname -I
       sleep 30
       curl ifconfig.me
+      cat /etc/hosts
 
  run-ip:
   name: ip 
@@ -38,8 +39,10 @@ jobs:
   needs: tools
   steps:
    - run: |
-      curl ifconfig.me
+      curl ifconfig.me 
+      echo " hostname "
       hostname -I
+      cat /etc/hosts
    
 
    # - name: Run latest-tag
