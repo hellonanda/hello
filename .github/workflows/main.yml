@@ -34,5 +34,7 @@ jobs:
       secret: ${{ github.TOKEN }}
       approvers: MirzaJunaid96
       minimum-approvals: 1
+      issue-title: "Deploying v1.3.5 to prod from staging"
+      issue-body: "Please approve or deny the deployment of version v1.3.5."
    - name: run simple pyhton scri
      run: python --version
