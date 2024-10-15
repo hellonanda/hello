@@ -9,17 +9,25 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+   
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        id: python-version
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{matrix.python-version}} == '3.7'
+      - name: Generate IAM Credential Report with retry
+        run: |
+            for i in {1..5}; do
+              aws iam generate-credential-report
+              if [ $? -eq 0 ]; then
+                echo "Credential report generated successfully"
+              else
+                echo "Failed to generate credential report. Retrying..."
+              fi
+            done
+            if [ $i -eq 5 ]; then
+              echo "Failed to generate credential report after 5 retries"
+              exit 1
+            fi
+      
 #       - name: version compatability
 #         if: ${{ steps.pyhton-version.outputs.version != '3.7' }}
 #         run: python --version
