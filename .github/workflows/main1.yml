@@ -17,17 +17,10 @@ jobs:
       - name: Generate IAM Credential Report with retry
         run: |
             for i in {1..5}; do
-              cat heelo.txt
-              if [ $? -eq 0 ]; then
-                echo "Credential report generated successfully"
-              else
-                echo "Failed to generate credential report. Retrying..."
-              fi
+              echo "Attempt $i to generate IAM report..."
+              cat hello.txt && break
+              [[ $i -lt 5 ]] && sleep 10 || { echo "Max retries reached. Exiting..."; exit 1; }
             done
-            if [ $i -eq 5 ]; then
-              echo "Failed to generate credential report after 5 retries"
-              exit 1
-            fi
       
 #       - name: version compatability
 #         if: ${{ steps.pyhton-version.outputs.version != '3.7' }}
