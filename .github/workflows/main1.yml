@@ -13,10 +13,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+     
       - name: Generate IAM Credential Report with retry
         run: |
             for i in {1..5}; do
-              aws iam generate-credential-report
+              cat heelo.txt
               if [ $? -eq 0 ]; then
                 echo "Credential report generated successfully"
               else
