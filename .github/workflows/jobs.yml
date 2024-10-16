@@ -1,0 +1,25 @@
+on: 
+ push:
+
+jobs:
+ hello1:
+   runs-on: ubuntu-latest
+   steps:
+    - name: csasd
+      uses: actions/checkout@v4
+    - run: |
+       cat hello > hello.txt
+       hello=$(cat hello.txt)
+       echo "hello=$hello" >> $GITHUB_ENV
+
+ hello2:
+   runs-on: ubuntu-latest
+   needs: hello1
+   steps:
+    - name: csasd
+      uses: actions/checkout@v4
+    - run: |
+       echo $hello > token
+       cat token
+
+  
