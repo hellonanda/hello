@@ -10,6 +10,7 @@ jobs:
     - run: |
        echo "hello" > hello.txt
        hello=$(cat hello.txt)
+       cat hello.txt
        echo "hello=$hello" >> $GITHUB_ENV
 
  hello2:
