@@ -8,7 +8,7 @@ jobs:
     - name: csasd
       uses: actions/checkout@v4
     - run: |
-       cat hello > hello.txt
+       echo "hello" > hello.txt
        hello=$(cat hello.txt)
        echo "hello=$hello" >> $GITHUB_ENV
 
