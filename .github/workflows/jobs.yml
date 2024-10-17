@@ -24,7 +24,7 @@ jobs:
        echo "hello" > hello.txt
        hello=$(cat hello.txt)
        cat hello.txt
-       echo "hello" >> $GITHUB_WORKSPACE/hello.txt
+       echo "hello" >> $HOME/hello.txt
 
     - name: Run Defender for Cloud Scan for LA Resources only
       id: defender_scan_for_LA_resources
@@ -39,7 +39,7 @@ jobs:
     - name: csasd
       uses: actions/checkout@v4
     - run: |
-       cat $GITHUB_WORKSPACE/hello.txt
+       cat $HOME/hello.txt
        
 
   
