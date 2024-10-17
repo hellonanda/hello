@@ -4,25 +4,24 @@ on:
 jobs:
  hello1:
    runs-on: ubuntu-latest
+   outputs:
+      sessiontoken: ${{ steps.sessiontoken.outputs.test }}
    steps:
 
     - name: Run Defender for Cloud Scan for all resources
-      id: defender_scan_for_all_resources
+      id: sessiontoken
       # if: ${{ github.event.inputs.all_resources == 'true' }}
       run: |
        echo "hello" > hello.txt
-       hello=$(cat hello.txt)
-       cat hello.txt
-       echo "hello" >> $HOME/work/hello.txt
-       ls -la $HOME/work
-
+       hello=$(cat hello.txt) >> "$GITHUB_OUTPUT"
+        
  hello2:
    runs-on: ubuntu-latest
    needs: hello1
    steps:
-    - run: |
-       ls -la $HOME/work
-       cat $HOME/work/hello.txt
+      - env:
+          sessiontoken: ${{needs.hello1.outputs.sessiontoken}}
+        run: echo "$sessiontoken"
        
 
   
