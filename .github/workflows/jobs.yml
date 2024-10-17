@@ -7,6 +7,7 @@ jobs:
     steps:
       - id: step1
         run: |
+           mkdir -p hello/1/2/3
            echo "helo" > ./hello/1/2/3/hello.txt
            echo "test=$(cat ./hello/1/2/3/hello.txt) " >> "$GITHUB_OUTPUT"
   job2:
