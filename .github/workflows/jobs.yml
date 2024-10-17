@@ -27,7 +27,7 @@ jobs:
 
     - name: Run Defender for Cloud Scan for LA Resources only
       id: defender_scan_for_LA_resources
-      if: ${{ github.event_name == 'schedule' }} || ${{ github.event.inputs.all_resources == 'false' }}
+      if: ${{ github.event_name == 'schedule' }} 
       run: |
        echo " helo"
 
