@@ -5,7 +5,7 @@ jobs:
  hello1:
    runs-on: ubuntu-latest
    outputs:
-      sessiontoken: ${{ steps.sessiontoken.outputs.test }}
+      sessiontoken: ${{ steps.sessiontoken.outputs.hello }}
    steps:
 
     - name: Run Defender for Cloud Scan for all resources
@@ -21,7 +21,7 @@ jobs:
    steps:
       - env:
           sessiontoken: ${{needs.hello1.outputs.sessiontoken}}
-        run: echo "$sessiontoken"
+        run: echo $sessiontoken
        
 
   
