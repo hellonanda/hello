@@ -1,5 +1,13 @@
 on: 
- push:
+ schedule:
+   - cron: "* * * * *"
+ workflow_dispatch:
+   inputs:
+    all_resources:
+        description: "Would you like to defender scan for all resources?"
+        required: true
+        type: boolean
+        default: true
 
 jobs:
  hello1:
@@ -7,11 +15,21 @@ jobs:
    steps:
     - name: csasd
       uses: actions/checkout@v4
-    - run: |
+
+    - name: Run Defender for Cloud Scan for all resources
+      id: defender_scan_for_all_resources
+      if: ${{ github.event.inputs.all_resources == 'true' }}
+      run: |
        echo "hello" > hello.txt
        hello=$(cat hello.txt)
        cat hello.txt
        echo "hello=$hello" >> $GITHUB_ENV
+
+    - name: Run Defender for Cloud Scan for LA Resources only
+      id: defender_scan_for_LA_resources
+      if: ${{ github.event_name == 'schedule' }}
+      run: |
+       echo " helo"
 
  hello2:
    runs-on: ubuntu-latest
