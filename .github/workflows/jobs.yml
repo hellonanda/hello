@@ -7,7 +7,7 @@ on:
         description: "Would you like to defender scan for all resources?"
         required: true
         type: boolean
-        default: true
+        default: false
 
 jobs:
  hello1:
@@ -27,7 +27,7 @@ jobs:
 
     - name: Run Defender for Cloud Scan for LA Resources only
       id: defender_scan_for_LA_resources
-      if: ${{ github.event_name == 'schedule' }}
+      if: ${{ github.event_name == 'schedule' }} || ${{ github.event.inputs.all_resources == 'false' }}
       run: |
        echo " helo"
 
