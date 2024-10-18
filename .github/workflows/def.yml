@@ -49,7 +49,7 @@ jobs:
     environment: aig-ms-${{ github.event.inputs.env_grp }}-labff
     steps:
     - name: Run Defender for Cloud Scan for LA Resources only
-      id: defender_scan_for_all_resources
+      id: defender_scan_for_LA_resources
       if: ${{ github.event.inputs.all_resources == 'false' }}
       run: |
         report_file="${{ github.event.inputs.env_grp }}_security_alerts_report.json"
@@ -57,10 +57,10 @@ jobs:
         echo "All security alerts have been collected in $report_file"
 
     - name: Run Defender for Cloud Scan for all Resources
-      id: defender_scan_for_LA_resources
+      id: defender_scan_for_all_resources
       if: ${{ github.event.inputs.all_resources == 'true' }}
       run: |
-        report_file="${{ github.event.inputs.env_grp }}_allresources_security_alerts_report.json"
+        report_file="${{ github.event.inputs.env_grp }}_security_alerts_report.json"
         echo '[]' > $report_file
         echo "All security alerts have been collected in $report_file"
 
@@ -70,5 +70,5 @@ jobs:
        name: ${{ github.event.inputs.env_grp }}_azure_defender_cloud_results
        retention-days: 1
        path: | 
-        ${{ github.event.inputs.env_grp }}_allresources_security_alerts_report.json
+        ${{ github.event.inputs.env_grp }}_security_alerts_report.json
 
