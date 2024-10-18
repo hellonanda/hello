@@ -60,7 +60,7 @@ jobs:
       id: defender_scan_for_LA_resources
       if: ${{ github.event.inputs.all_resources == 'true' }}
       run: |
-        report_file="${{ github.event.inputs.env_grp }_allresources_security_alerts_report.json"
+        report_file="${{ github.event.inputs.env_grp }}_allresources_security_alerts_report.json"
         echo '[]' > $report_file
         echo "All security alerts have been collected in $report_file"
 
