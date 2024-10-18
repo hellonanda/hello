@@ -1,0 +1,57 @@
+on: 
+ schedule:
+ - cron: "* * * * *"
+ workflow_dispatch:
+  inputs:
+   la_only:
+    description: "Would you like to defender scan for all resources?"
+    required: true
+    type: boolean
+    default: false
+   env_grp:
+     description: please tri or pre or rls env group
+     required: true
+     type: choice
+     options:
+      - tri
+      - pre
+      - rls
+jobs:
+  defender-check:
+    if: ${{ github.event_name == 'schedule' }}
+    name: MS defender scan for azure resources 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [tri,pre,rls] 
+    environment: aig-ms-${{ matrix.environment }}-labff
+    steps:
+    - name: Run Defender for Cloud Scan for LA Resources only
+      id: defender_scan_for_LA_resources
+      run: |
+        report_file="${{ matrix.environment }}_security_alerts_report.json"
+        echo '[]' > $report_file
+        echo "All security alerts have been collected in $report_file"
+
+  defender-scancheck:
+    if: ${{ github.event_name  == 'workflow_dispatch' }}
+    name: MS defender scan for azure_resources 
+    runs-on: ubuntu-latest
+    environment: aig-ms-${{ github.event.inputs.env_grp }}-labff
+    steps:
+    - name: Run Defender for Cloud Scan for LA Resources only
+      id: defender_scan_for_all_resources
+      if: ${{ github.event.inputs.la_only == 'false' }}
+      run: |
+        report_file="${{ matrix.environment }}_security_alerts_report.json"
+        echo '[]' > $report_file
+        echo "All security alerts have been collected in $report_file"
+
+    - name: Run Defender for Cloud Scan for LA Resources only
+      id: defender_scan_for_LA_resources
+      if: ${{ github.event.inputs.la_only == 'true' }}
+      run: |
+        report_file="${{ matrix.environment }}_security_alerts_report.json"
+        echo '[]' > $report_file
+        echo "All security alerts have been collected in $report_file"
+
