@@ -3,7 +3,7 @@ on:
  # - cron: "* * * * *"
  workflow_dispatch:
   inputs:
-   la_only:
+   all_resources:
     description: "Would you like to defender scan for all resources?"
     required: true
     type: boolean
@@ -12,6 +12,7 @@ on:
      description: please tri or pre or rls env group
      required: true
      type: choice
+     default: ""
      options:
       - tri
       - pre
@@ -47,7 +48,7 @@ jobs:
         echo '[]' > $report_file
         echo "All security alerts have been collected in $report_file"
 
-    - name: Run Defender for Cloud Scan for LA Resources only
+    - name: Run Defender for Cloud Scan for all Resources
       id: defender_scan_for_LA_resources
       if: ${{ github.event.inputs.la_only == 'true' }}
       run: |
