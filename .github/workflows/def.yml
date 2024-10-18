@@ -1,3 +1,4 @@
+name: def check
 on: 
  schedule:
  - cron: "* * * * *"
@@ -37,7 +38,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
        name: ${{ matrix.environment }}_azure_defender_cloud_results
-       retention: 1
+       retention-days: 1
        path: | 
         ${{ matrix.environment }}_security_alerts_report.json
 
@@ -67,7 +68,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
        name: ${{ github.event.inputs.env_grp }}_azure_defender_cloud_results
-       retention: 1
+       retention-days: 1
        path: | 
         ${{ github.event.inputs.env_grp }}_security_alerts_report.json
 
