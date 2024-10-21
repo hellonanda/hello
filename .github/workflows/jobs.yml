@@ -13,6 +13,7 @@ jobs:
            echo "sessionToken" > ./hello/1/2/3/hello.txt
            echo "token=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
            echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
+           cp ./hello/1/2/3/hello.txt $GITHUB_WORKSPACE/hello.txt
  
   job2:
     runs-on: ubuntu-latest
@@ -26,12 +27,9 @@ jobs:
             echo "$OUTPUT2"
             echo "$OUTPUT1" > token.txt
             cat token.txt
+            cat $GITHUB_WORKSPACE/hello.txt
 
-      - name: Upload Session Token in case of failure
-        uses: actions/upload-artifact@v4
-        with:
-          name: Session Token
-          path: token.txt
+     
 
    
   
