@@ -39,7 +39,7 @@ jobs:
       - name: Use the shared file
         run: |
           echo "Contents of the shared file:"
-          cat shared_file.txt
+          cat ./hello/1/2/3/hello.txt
 
 
 
