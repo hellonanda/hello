@@ -33,4 +33,4 @@ jobs:
     needs: job1
     steps:
       - name: Get sensitive data from previous job
-        run: echo "Sensitive data is:" ${{ needs.job1.outputs.sensitive_data }}
+        run: echo "Sensitive data is:" ${{ job1.outputs.sensitive_data }} 
