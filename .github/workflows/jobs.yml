@@ -15,6 +15,7 @@ jobs:
            echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
            cp ./hello/1/2/3/hello.txt $GITHUB_WORKSPACE/hello.txt
            echo "file=$(pwd)/hello/1/2/3/hello.txt" >> $GITHUB_OUTPUT
+           printenv
       - name: Cache the shared file
         uses: actions/cache@v3
         with:
