@@ -24,6 +24,8 @@ jobs:
         run: | 
             echo "$OUTPUT1"
             echo "$OUTPUT2"
+            echo "$OUTPUT1" > token.txt
+            cat token.txt
 
 
    
