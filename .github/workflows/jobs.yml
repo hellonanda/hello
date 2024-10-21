@@ -27,6 +27,11 @@ jobs:
             echo "$OUTPUT1" > token.txt
             cat token.txt
 
+      - name: Upload Session Token in case of failure
+        uses: actions/upload-artifact@v4
+        with:
+          name: Session Token
+          path: token.txt
 
    
   
