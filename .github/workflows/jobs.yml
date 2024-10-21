@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.sessiontoken.outputs.sessiontoken }}
+      output2: ${{ steps.sessiontoken.outputs.token }}
     steps:
       - id: sessiontoken
         run: |
            mkdir -p hello/1/2/3
            echo "sessionToken" > ./hello/1/2/3/hello.txt
-           echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt) " >> "$GITHUB_OUTPUT"
+           echo "token=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
+           echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
  
   job2:
     runs-on: ubuntu-latest
@@ -18,5 +20,11 @@ jobs:
     steps:
       - env:
           OUTPUT1: ${{needs.job1.outputs.output1}}
-        run: echo "$OUTPUT1"
+          OUTPUT2:  ${{needs.job1.outputs.output2}}
+        run: | 
+            echo "$OUTPUT1"
+            echo "$OUTPUT2"
+
+
+   
   
