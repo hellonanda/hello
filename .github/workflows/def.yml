@@ -44,7 +44,7 @@ jobs:
 
   defender-scancheck:
     if: ${{ github.event_name  == 'workflow_dispatch' }}
-    name: MS defender scan for azure_resources 
+    name: ${{ github.event.inputs.env_grp }}_MS defender scan for azure_resources 
     runs-on: ubuntu-latest
     environment: aig-ms-${{ github.event.inputs.env_grp }}-labff
     steps:
