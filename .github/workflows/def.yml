@@ -21,7 +21,7 @@ on:
 jobs:
   defender-check:
     if: ${{ github.event_name == 'schedule' }}
-    name: MS defender scan for azure resources 
+    name: ${{ matrix.environment }}_MS defender scan for azure resources 
     runs-on: ubuntu-latest
     strategy:
       matrix:
