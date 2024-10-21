@@ -26,13 +26,11 @@ jobs:
  
       - name: Set output
         id: set-output
-        run: echo "::set-output name=sensitive_data::$(cat sensitive.txt)"
+        run: echo "::set-output name=sensitive_data::$(cat sensitive.txt)" >> $GITHUB_ENV
  
   job2:
     runs-on: ubuntu-latest
     needs: job1
     steps:
       - name: Get sensitive data from previous job
-        run: echo "Sensitive data is:" $SESITIVE_DATA
-        env:
-          SENSITIVE_DATA: ${{ needs.job1.outputs.sensitive_data }}
+        run: echo "Sensitive data is:" ${{ needs.job1.outputs.sensitive_data }}
