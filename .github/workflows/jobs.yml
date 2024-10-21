@@ -29,10 +29,13 @@ jobs:
         run: |
           echo "::set-output name=sensitive_data::$(cat sensitive.txt)" >> $GITHUB_ENV
           echo "TOKEN=`$(cat sensitive.txt)`" >> $GITHUB_ENV
+          printenv
  
   job2:
     runs-on: ubuntu-latest
     needs: job1
     steps:
       - name: Get sensitive data from previous job
-        run: echo "Sensitive data is:" $TOKEN 
+        run: |
+          echo "Sensitive data is:" $TOKEN 
+          printenv
