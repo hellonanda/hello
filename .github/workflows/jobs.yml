@@ -1,33 +1,59 @@
-on: 
- workflow_dispatch: {}
-jobs:
+# on: 
+#  workflow_dispatch: {}
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       output1: ${{ steps.sessiontoken.outputs.file }}
+#       output2: ${{ steps.sessiontoken.outputs.token }}
+#     steps:
+#       - id: sessiontoken
+#         run: |
+#            mkdir -p hello/1/2/3
+#            echo "sessionToken" > ./hello/1/2/3/hello.txt
+#            echo "token=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
+#            echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
+#            cp ./hello/1/2/3/hello.txt $GITHUB_WORKSPACE/hello.txt
+#            echo "file=$(pwd)/hello/1/2/3/hello.txt" >> $GITHUB_OUTPUT
+ 
+#   job2:
+#     runs-on: ubuntu-latest
+#     needs: job1
+#     steps:
+#        - run: | 
+#             echo "$OUTPUT1"
+#             echo "$OUTPUT2"
+#             echo "$OUTPUT1" > token.txt
+#             cat token.txt
+#             echo "File: ${{ needs.job1.outputs.file }}"
+#             cat ${{ needs.job1.outputs.file }}
+
+
+ on:
+  workflow_dispatch: {}
+ 
+ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.sessiontoken.outputs.file }}
-      output2: ${{ steps.sessiontoken.outputs.token }}
+      file-path: ${{ steps.step1.outputs.file-path }}
     steps:
-      - id: sessiontoken
+      - name: Create a file
         run: |
-           mkdir -p hello/1/2/3
-           echo "sessionToken" > ./hello/1/2/3/hello.txt
-           echo "token=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
-           echo "::add-mask::sessiontoken=$(cat ./hello/1/2/3/hello.txt)" >> "$GITHUB_OUTPUT"
-           cp ./hello/1/2/3/hello.txt $GITHUB_WORKSPACE/hello.txt
-           echo "file=$(pwd)/hello/1/2/3/hello.txt" >> $GITHUB_OUTPUT
- 
+          echo "This is a shared file." > shared_file.txt
+      - name: Set output
+        id: step1
+        run: |
+          echo "file-path=$(pwd)/shared_file.txt" >> $GITHUB_OUTPUT
+
   job2:
     runs-on: ubuntu-latest
     needs: job1
     steps:
-       - run: | 
-            echo "$OUTPUT1"
-            echo "$OUTPUT2"
-            echo "$OUTPUT1" > token.txt
-            cat token.txt
-            echo "File: ${{ needs.job1.outputs.file }}"
-            cat ${{ needs.job1.outputs.file }}
-     
+      - name: Retrieve output
+        run: |
+          echo "File path: ${{ needs.job1.outputs.file-path }}"
+          cat ${{ needs.job1.outputs.file-path }}
 
      
 
