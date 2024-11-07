@@ -1,0 +1,15 @@
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create file
+        run: echo "Hello, World!" > $GITHUB_WORKSPACE/example.txt
+
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Access shared file
+        run: cat $GITHUB_WORKSPACE/example.txt
