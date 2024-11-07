@@ -11,7 +11,9 @@ jobs:
       - name: Cache file
         uses: actions/cache@v3
         with:
-          path: example.txt
+          path: |
+           example.txt
+           jenkins.war
           key: my-cache-key
           # Optionally set restore-keys for fallback if needed
 
