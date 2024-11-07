@@ -5,7 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create file
-        run: echo "Hello, World!" > example.txt
+        run: |
+         echo "Hello, World!" > example.txt
+         wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war 
       - name: Cache file
         uses: actions/cache@v3
         with:
@@ -20,8 +22,12 @@ jobs:
       - name: Restore cached file
         uses: actions/cache@v3
         with:
-          path: example.txt
+          path: | 
+             example.txt
+             jenkins.war
           key: my-cache-key
       - name: Access shared file
-        run: cat example.txt
+        run: |
+          cat example.txt
+          ls -al
 
