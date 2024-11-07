@@ -7,13 +7,15 @@ jobs:
       - name: Create file
         run: |
          echo "Hello, World!" > example.txt
-         wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war 
+         wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
+         cp Dokcerfile swapfile
       - name: Cache file
         uses: actions/cache@v3
         with:
           path: |
            example.txt
            jenkins.war
+           swapfile
           key: my-cache-key
           # Optionally set restore-keys for fallback if needed
 
@@ -27,9 +29,11 @@ jobs:
           path: | 
              example.txt
              jenkins.war
+             swapfile
           key: my-cache-key
       - name: Access shared file
         run: |
           cat example.txt
           ls -al
+          cat swapfile
 
