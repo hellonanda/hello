@@ -15,6 +15,7 @@ jobs:
       - name: Cache file
         uses: actions/cache@v3
         with:
+          retention-days: 1
           path: |
            example.txt
            jenkins.war
