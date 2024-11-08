@@ -19,7 +19,7 @@ jobs:
            example.txt
            jenkins.war
            swapfile
-          key: my-cache-key
+          key: my-cache-key-${{ github.run_id }}
           # Optionally set restore-keys for fallback if needed
 
   job2:
@@ -35,7 +35,7 @@ jobs:
              example.txt
              jenkins.war
              swapfile
-          key: my-cache-key
+          key: my-cache-key-${{ github.run_id }}
       - name: Access shared file
         run: |
           cat example.txt
