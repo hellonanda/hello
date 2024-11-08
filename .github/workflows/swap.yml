@@ -41,6 +41,8 @@ jobs:
         env:
          GH_TOKEN: ${{ github.token }}
         run: |
+          ls -al 
+          cat example.txt
           cat swapfile
           gh cache delete my-cache-key-${{ github.run_id }}
 
