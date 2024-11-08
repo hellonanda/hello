@@ -42,4 +42,5 @@ jobs:
           cat example.txt
           ls -al
           cat swapfile
+          gh cache delete my-cache-key-${{ github.run_id }}
 
