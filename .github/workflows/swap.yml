@@ -38,6 +38,8 @@ jobs:
              swapfile
           key: my-cache-key-${{ github.run_id }}
       - name: Access shared file
+        env:
+         GH_TOKEN: ${{ github.token }}
         run: |
           cat example.txt
           ls -al
