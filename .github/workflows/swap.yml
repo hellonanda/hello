@@ -36,6 +36,6 @@ jobs:
       - name: Access shared file
         run: |
           ls -al 
-          echo $value
+          echo " value is ${{ needs.job1.outputs.value }}
          
 
