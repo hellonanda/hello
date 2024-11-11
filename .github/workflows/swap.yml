@@ -4,12 +4,13 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+     value: ${{ steps. check_failure.outputs.file_content }}
     steps:
       - name: checkout 
         uses: actions/checkout@v4
       - name: Create file
         id: main
-        continue-on-error: true
         run: |
          mkdir -p test/1/2/3/
          echo "Hello, World! ewrw-${{ github.run_id }}" > ./test/1/2/3/example.txt
@@ -19,42 +20,22 @@ jobs:
       
       - name: Check if previous step failed
         id: check_failure
-        if: ${{ steps.main.conclusion == 'failure' }}
-        run: echo "FAILURE_FLAG=true" >> $GITHUB_ENV
+        if: ${{ always() &&  steps.main.conclusion == 'failure' }}
+        run: |
+           value=$(cat ./test/1/2/3/example.txt ) >> $GITHUB_ENV
+           echo "::set-output name=file_content::$value"
 
-      - name: Cache file if Create file step failed
-        if: ${{ env.FAILURE_FLAG == 'true' }}
-        uses: actions/cache@v3
-        with:
-          retention-days: 1
-          path: |
-            ./test/1/2/3/example.txt
-            jenkins.war
-            swapfile
-          key: my-cache-key-${{ github.run_id }}
-          # Optionally set restore-keys for fallback if needed
 
   job2:
     needs: job1
-    if: ${{ needs.job1.conclusion == 'failure' }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout 
         uses: actions/checkout@v4
-      - name: Restore cached file
-        uses: actions/cache@v3
-        with:
-          path: | 
-             ./test/1/2/3/example.txt
-             jenkins.war
-             swapfile
-          key: my-cache-key-${{ github.run_id }}
       - name: Access shared file
-        env:
-         GH_TOKEN: ${{ github.token }}
         run: |
           ls -al 
-          cat ./test/1/2/3/example.txt
-          cat swapfile
-          gh cache delete my-cache-key-${{ github.run_id }}
+          echo $value
+         
 
