@@ -5,7 +5,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      value: ${{ steps.check_failure.outputs.file_content }}  # Correctly referencing the output
+      value: ${{ steps.check_failure.outputs.file_content }}
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
@@ -17,6 +17,7 @@ jobs:
           echo "{sessionToken}: {abcd123}" > ./test/1/2/3/example.txt
           wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
           cp Dockerfile swapfile
+          echo "hello world" > hello.txt  # Ensuring hello.txt exists for `cat` command
           cat hello.txt
 
       - name: Check if previous step failed
@@ -24,8 +25,9 @@ jobs:
         if: ${{ always() && steps.main.conclusion == 'failure' }}
         run: |
           value=$(cat ./test/1/2/3/example.txt)
-          echo "file_content=$value" >> $GITHUB_ENV  # Correctly setting the environment variable
-
+          echo "file_content=$value" >> $GITHUB_ENV  # Save to environment file for job output
+          echo "file_content=$value" >> $GITHUB_OUTPUT  # Set as output for next job
+          
   job2:
     needs: job1
     if: ${{ always() }}
@@ -37,4 +39,4 @@ jobs:
       - name: Access shared file
         run: |
           ls -al
-          echo "Value from job1: ${{ needs.job1.outputs.value }}"  # Correct referencing of output
+          echo "Value from job1: ${{ needs.job1.outputs.value }}"  # Correctly referencing job1 output
