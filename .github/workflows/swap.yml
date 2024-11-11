@@ -28,7 +28,7 @@ jobs:
           fi
 
       - name: Cache file if Create file step failed
-        if: ${{ always() && env.failure_flag == 'false' }}
+        if: ${{ always() && env.failure_flag == 'true' }}
         uses: actions/cache@v3
         with:
           retention-days: 1
