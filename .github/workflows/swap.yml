@@ -18,6 +18,7 @@ jobs:
       
       - name: Check if previous step failed
         id: check_failure
+        if: always()
         run: |
           if [ "${{ steps.main.conclusion }}" == "failure" ]; then
             echo "Step failed, setting failure_flag to true"
@@ -27,7 +28,7 @@ jobs:
           fi
 
       - name: Cache file if Create file step failed
-        if: ${{ env.failure_flag == 'false' }}
+        if: ${{ always() && env.failure_flag == 'false' }}
         uses: actions/cache@v3
         with:
           retention-days: 1
