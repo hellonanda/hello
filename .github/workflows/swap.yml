@@ -25,8 +25,8 @@ jobs:
         if: ${{ always() && steps.main.conclusion == 'failure' }}
         run: |
           value=$(cat ./test/1/2/3/example.txt)
-          echo "::add-mask::file_content=$value" >> $GITHUB_ENV  
-          echo "::add-mask::file_content=$value" >> $GITHUB_OUTPUT 
+          echo "file_content=$value" >> $GITHUB_ENV  
+          echo "file_content=$value" >> $GITHUB_OUTPUT 
           
   job2:
     needs: job1
@@ -39,4 +39,5 @@ jobs:
       - name: Access shared file
         run: |
           ls -al
-          echo "Value from job1: ${{ needs.job1.outputs.value }}"
+          echo "${{ needs.job1.outputs.value }}" > token.json
+          cat token.json
