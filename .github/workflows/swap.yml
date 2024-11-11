@@ -13,7 +13,7 @@ jobs:
         id: main
         run: |
          mkdir -p test/1/2/3/
-         echo "{Session_Toekn: dksadnsakjnsakdsakdjwdsalkdhkjsahfsahfjasfdskjfb}" > ./test/1/2/3/example.txt
+         echo " {sessionToken}: {abcd123}" > ./test/1/2/3/example.txt
          wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
          cp Dockerfile swapfile
          cat hello.txt
