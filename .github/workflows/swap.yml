@@ -8,12 +8,15 @@ jobs:
       - name: checkout 
         uses: actions/checkout@v4
       - name: Create file
+        id: main
         run: |
          mkdir -p test/1/2/3/
          echo "Hello, World! ewrw-${{ github.run_id }}" > ./test/1/2/3/example.txt
          wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
          cp Dockerfile swapfile
+         exit 1
       - name: Cache file
+        if: ${{ steps.main.conclusion == 'failure' }}
         uses: actions/cache@v3
         with:
           retention-days: 1
@@ -26,6 +29,7 @@ jobs:
 
   job2:
     needs: job1
+    if: ${{ needs.jobs.job1.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout 
