@@ -27,7 +27,6 @@ jobs:
           value=$(cat ./test/1/2/3/example.txt)
           echo "file_content=$value" >> $GITHUB_ENV  
           echo "file_content=$value" >> $GITHUB_OUTPUT 
-          printenv
           
   job2:
     needs: job1
@@ -41,4 +40,3 @@ jobs:
         run: |
           ls -al
           echo "Value from job1: ${{ needs.job1.outputs.value }}"
-          printenv
