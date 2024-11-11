@@ -17,7 +17,7 @@ jobs:
           echo "{sessionToken}: {abcd123}" > ./test/1/2/3/example.txt
           wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
           cp Dockerfile swapfile
-          echo "hello world" > hello.txt  # Ensuring hello.txt exists for `cat` command
+          
           cat hello.txt
 
       - name: Check if previous step failed
