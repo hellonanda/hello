@@ -9,6 +9,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Create file
         id: main
+        continue-on-error: true
         run: |
          mkdir -p test/1/2/3/
          echo "Hello, World! ewrw-${{ github.run_id }}" > ./test/1/2/3/example.txt
@@ -18,17 +19,11 @@ jobs:
       
       - name: Check if previous step failed
         id: check_failure
-        if: always()
-        run: |
-          if [ "${{ steps.main.conclusion }}" == "failure" ]; then
-            echo "Step failed, setting failure_flag to true"
-            echo "failure_flag=true" >> $GITHUB_ENV
-          else
-            echo "failure_flag=false" >> $GITHUB_ENV
-          fi
+        if: ${{ steps.main.conclusion == 'failure' }}
+        run: echo "FAILURE_FLAG=true" >> $GITHUB_ENV
 
       - name: Cache file if Create file step failed
-        if: ${{ env.failure_flag == 'true' }}
+        if: ${{ env.FAILURE_FLAG == 'true' }}
         uses: actions/cache@v3
         with:
           retention-days: 1
