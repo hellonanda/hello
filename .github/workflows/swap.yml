@@ -1,41 +1,40 @@
 on: 
- push:
+  push:
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-     value: ${{ steps.check_failure.outputs.file_content }}
+      value: ${{ steps.check_failure.outputs.file_content }}  # Correctly referencing the output
     steps:
-      - name: checkout 
+      - name: Checkout 
         uses: actions/checkout@v4
+
       - name: Create file
         id: main
         run: |
-         mkdir -p test/1/2/3/
-         echo "{sessionToken}: {abcd123}" > ./test/1/2/3/example.txt
-         wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
-         cp Dockerfile swapfile
-         cat hello.txt
-      
+          mkdir -p test/1/2/3/
+          echo "{sessionToken}: {abcd123}" > ./test/1/2/3/example.txt
+          wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
+          cp Dockerfile swapfile
+          cat hello.txt
+
       - name: Check if previous step failed
         id: check_failure
-        if: ${{ always() &&  steps.main.conclusion == 'failure' }}
+        if: ${{ always() && steps.main.conclusion == 'failure' }}
         run: |
-           value=$(cat ./test/1/2/3/example.txt ) >> $GITHUB_ENV
-           echo "::set-output name=file_content::$value"
-
+          value=$(cat ./test/1/2/3/example.txt)
+          echo "file_content=$value" >> $GITHUB_ENV  # Correctly setting the environment variable
 
   job2:
     needs: job1
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - name: checkout 
+      - name: Checkout 
         uses: actions/checkout@v4
+
       - name: Access shared file
         run: |
-          ls -al 
-          echo " value is ${{ needs.job1.outputs.value }}
-         
-
+          ls -al
+          echo "Value from job1: ${{ needs.job1.outputs.value }}"  # Correct referencing of output
