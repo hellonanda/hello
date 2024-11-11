@@ -15,21 +15,32 @@ jobs:
          wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
          cp Dockerfile swapfile
          cat hello.txt
-      - name: Cache file
-        if: ${{ always() && steps.main.conclusion == 'failure' }}
+      
+      - name: Check if previous step failed
+        id: check_failure
+        run: |
+          if [ "${{ steps.main.outcome }}" == "failure" ]; then
+            echo "Step failed, setting failure_flag to true"
+            echo "failure_flag=true" >> $GITHUB_ENV
+          else
+            echo "failure_flag=false" >> $GITHUB_ENV
+          fi
+
+      - name: Cache file if Create file step failed
+        if: ${{ env.failure_flag == 'true' }}
         uses: actions/cache@v3
         with:
           retention-days: 1
           path: |
-           ./test/1/2/3/example.txt
-           jenkins.war
-           swapfile
+            ./test/1/2/3/example.txt
+            jenkins.war
+            swapfile
           key: my-cache-key-${{ github.run_id }}
           # Optionally set restore-keys for fallback if needed
 
   job2:
     needs: job1
-    if: ${{ needs.jobs.job1.conclusion == 'failure' }}
+    if: ${{ needs.job1.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout 
