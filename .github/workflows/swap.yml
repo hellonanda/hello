@@ -5,7 +5,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-     value: ${{ steps. check_failure.outputs.file_content }}
+     value: ${{ steps.check_failure.outputs.file_content }}
     steps:
       - name: checkout 
         uses: actions/checkout@v4
