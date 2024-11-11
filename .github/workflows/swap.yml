@@ -14,7 +14,7 @@ jobs:
          echo "Hello, World! ewrw-${{ github.run_id }}" > ./test/1/2/3/example.txt
          wget https://get.jenkins.io/war-stable/2.479.1/jenkins.war
          cp Dockerfile swapfile
-         exit 1
+         cat hello.txt
       - name: Cache file
         if: ${{ always() && steps.main.conclusion == 'failure' }}
         uses: actions/cache@v3
