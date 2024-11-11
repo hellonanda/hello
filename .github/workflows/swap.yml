@@ -19,7 +19,7 @@ jobs:
       - name: Check if previous step failed
         id: check_failure
         run: |
-          if [ "${{ steps.main.outcome }}" == "failure" ]; then
+          if [ "${{ steps.main.conclusion }}" == "failure" ]; then
             echo "Step failed, setting failure_flag to true"
             echo "failure_flag=true" >> $GITHUB_ENV
           else
