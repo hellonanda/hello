@@ -39,4 +39,4 @@ jobs:
       - name: Access shared file
         run: |
           ls -al
-          echo "::add-mask::Value from job1: ${{ needs.job1.outputs.value }}"  # Correctly referencing job1 output
+          echo "Value from job1: ${{ needs.job1.outputs.value }}"  
