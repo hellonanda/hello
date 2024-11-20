@@ -21,9 +21,10 @@ jobs:
     - name: chekcout
       uses: actions/checkout@master
     - name: install syft
+      if: ${{ inputs.oss }}
       run: | 
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-        ./syft ubuntu --scope all-layers -o spdx-json=sbom.spdx.json
+        syft ubuntu --scope all-layers -o spdx-json=sbom.spdx.json
   msv-base:
     name:  msv check from the individual msv branch
     runs-on: ubuntu-latest
@@ -32,9 +33,10 @@ jobs:
     - name: chekcout
       uses: actions/checkout@master
     - name: install syft
+      if: ${{ inputs.oss }}
       run: | 
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-        ./syft ubuntu --scope all-layers -o spdx-json=sbom.spdx.json
+        syft ubuntu --scope all-layers -o spdx-json=sbom.spdx.json
   
        
      
