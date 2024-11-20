@@ -34,9 +34,16 @@ jobs:
       uses: actions/checkout@master
     - name: install syft
       if: ${{ inputs.oss }}
-      run: | 
+      run: |
+        # check the msv code from the bracnh
+        DIR_NAME=$(basename $(pwd))
+        echo "Directory name is: $DIR_NAME"
+        
+        # Set the directory name as an output variable
+        echo "dir_name=$DIR_NAME" >> $GITHUB_ENV
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
         syft ubuntu --scope all-layers -o spdx-json=sbom.spdx.json
+    
   
        
      
