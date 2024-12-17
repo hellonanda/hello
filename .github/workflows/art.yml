@@ -21,7 +21,7 @@ jobs:
       - name: Create Artifact
         run: |
           mkdir -p artifacts/${{ matrix.job_name }}
-          echo "This is artifact for ${matrix.job_name}" > artifacts/${{ matrix.job_name }}/artifact.txt
+          echo "This is artifact for ${{ matrix.job_name }}" > artifacts/${{ matrix.job_name }}/artifact.txt
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
