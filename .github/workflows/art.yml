@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Your Job
-        run: echo "Running job for ${matrix.job_name}"
+        run: echo "Running job for ${{ matrix.job_name }}"
 
       - name: Create Artifact
         run: |
