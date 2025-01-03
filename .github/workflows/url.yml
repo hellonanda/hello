@@ -8,6 +8,7 @@ jobs:
      - name: checkout
        uses: actions/checkout@main
      - name: Upload artifact
+       id: artifact-upload-step
        uses: actions/upload-artifact@v3
        with:
           name: my-artifact
