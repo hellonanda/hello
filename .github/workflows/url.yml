@@ -14,5 +14,6 @@ jobs:
           path: .
      - name: Generate artifact URL
        run: |
-        echo "Artifact URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/" >> $GITHUB_ENV
+        gh run view ${{ github.run_id }} --json artifacts -q '.artifacts.[].archiveDownloadUrl' > artifact_links.txt
+        cat artifact_links.txt
         
