@@ -17,5 +17,6 @@ jobs:
        run: |
         echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
         echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
-       env:
-        GH_TOKEN: ${{ github.token }}
+        echo 'Artifact_URL=${{ steps.artifact-upload-step.outputs.artifact-url }}' >> $GITHUB_ENV
+     - name:  print env
+       run: echo $Artifact_URL
