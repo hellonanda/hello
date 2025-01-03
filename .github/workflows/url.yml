@@ -14,8 +14,7 @@ jobs:
           path: .
      - name: Generate artifact URL
        run: |
-        gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts --paginate \
-          --jq '.artifacts[] | "https://github.com/${{ github.repository }}/actions/artifacts/\(.id)/download"' > artifact_links.txt
-        cat artifact_links.txt
+        echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
+        echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
        env:
         GH_TOKEN: ${{ github.token }}
