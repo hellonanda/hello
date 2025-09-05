@@ -38,9 +38,6 @@ permissions:
   security-events: write
   actions: read
 
-concurrency:
-  group: security-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   reuse-org-pipeline:
