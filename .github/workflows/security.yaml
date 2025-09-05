@@ -3,7 +3,35 @@ name: Security gate
 on:
   pull_request:
   push:
+    branches: [ main ]
   workflow_dispatch:
+    inputs:
+      image_name:
+        description: "Local image tag to build/scan (e.g., myapp)"
+        required: false
+        default: myapp
+      context:
+        description: "Docker build context"
+        required: false
+        default: .
+      dockerfile:
+        description: "Path to Dockerfile"
+        required: false
+        default: Dockerfile
+      build_image:
+        description: "Build Docker image before SBOM/scan"
+        required: false
+        type: boolean
+        default: true
+      severity_cutoff:
+        description: "Fail on this severity or higher (low|medium|high|critical)"
+        required: false
+        default: high
+      scan_secrets:
+        description: "Run hard-coded secret scan (Gitleaks)"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -18,10 +46,10 @@ jobs:
   reuse-org-pipeline:
     uses: hellonanda/.github/.github/workflows/org-security-pipeline.yml@main
     with:
-      image_name: myapp                    # change if you prefer
-      context: .
-      dockerfile: Dockerfile
-      build_image: true                    # set false if you only want to SBOM the source directory later
-      severity_cutoff: high                # fail on High+Critical
-      scan_secrets: true
-    secrets: inherit                       # lets repos use org secrets like GITLEAKS_LICENSE
+      image_name: ${{ github.event.inputs.image_name || 'myapp' }}
+      context: ${{ github.event.inputs.context || '.' }}
+      dockerfile: ${{ github.event.inputs.dockerfile || 'Dockerfile' }}
+      build_image: ${{ github.event.inputs.build_image || true }}
+      severity_cutoff: ${{ github.event.inputs.severity_cutoff || 'high' }}
+      scan_secrets: ${{ github.event.inputs.scan_secrets || true }}
+    secrets: inherit
