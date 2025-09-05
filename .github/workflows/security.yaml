@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   reuse-org-pipeline:
-    uses: Nandak99/.github/.github/workflows/org-security-pipeline.yml@main
+    uses: hellonanda/.github/.github/workflows/org-security-pipeline.yml@main
     with:
       image_name: myapp                    # change if you prefer
       context: .
