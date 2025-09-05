@@ -41,7 +41,7 @@ permissions:
 
 jobs:
   reuse-org-pipeline:
-    uses: hellonanda/.github/.github/workflows/org-security-pipeline.yml@main
+    uses: hellonanda/.github/.github/workflows/org-security-pipeline.yml@main 
     with:
       image_name: ${{ github.event.inputs.image_name || 'myapp' }}
       context: ${{ github.event.inputs.context || '.' }}
