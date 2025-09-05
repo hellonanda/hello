@@ -1,0 +1,27 @@
+name: Security gate
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reuse-org-pipeline:
+    uses: Nandak99/.github/.github/workflows/org-security-pipeline.yml@main
+    with:
+      image_name: myapp                    # change if you prefer
+      context: .
+      dockerfile: Dockerfile
+      build_image: true                    # set false if you only want to SBOM the source directory later
+      severity_cutoff: high                # fail on High+Critical
+      scan_secrets: true
+    secrets: inherit                       # lets repos use org secrets like GITLEAKS_LICENSE
