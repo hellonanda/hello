@@ -1,4 +1,4 @@
 FROM node
 COPY . .
-MAINTAINER NANDA Kishore
+MAINTAINER NANDA KISHORE
 CMD ["tail" ,"-f"]
